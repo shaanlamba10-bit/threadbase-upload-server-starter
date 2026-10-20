@@ -3,6 +3,7 @@ import express from "express";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import uploadRoutes from "./routes/upload.routes.js";
+import authRoutes from "./routes/auth.routes.js";
 
 const app = express();
 const port = Number(process.env.PORT) || 3000;
@@ -11,6 +12,7 @@ const uploadsDirectory = path.join(currentDirectory, "uploads");
 
 app.use(express.json());
 app.use("/uploads", express.static(uploadsDirectory));
+app.use("/auth", authRoutes);
 app.use("/api", uploadRoutes);
 
 app.get("/health", (_req, res) => res.json({ status: "ok" }));
